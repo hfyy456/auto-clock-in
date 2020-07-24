@@ -105,9 +105,9 @@
             alert("你连学号位数都没打对，怎么给你打卡？")
             return
         }
-        let province = document.getElementById('province').value ? null : document.getElementById('province').getAttribute("placeholder");
-        let city = document.getElementById('city').value ? null : document.getElementById('city').getAttribute("placeholder");
-        let country = document.getElementById('country').value ? null : document.getElementById('country').getAttribute("placeholder");
+        let province = document.getElementById('province').value ? document.getElementById('province').value : document.getElementById('province').getAttribute("placeholder");
+        let city = document.getElementById('city').value ? document.getElementById('city').value : document.getElementById('city').getAttribute("placeholder");
+        let country = document.getElementById('country').value ? document.getElementById('country').value : document.getElementById('country').getAttribute("placeholder");
         if (document.getElementById('check').checked) {
             auto = 1
         } else {
@@ -122,6 +122,8 @@
             auto: auto
         }
         let url = 'http://10.255.206.190:5000/clock'
+        //let url = 'http://127.0.0.1:5000/clock'
+
         console.log(params)
         alert('别急,弹出这对话框已经在给你打卡了。')
         postData(url, params).then(res => {
