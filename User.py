@@ -28,8 +28,19 @@ class User:
         return items
 
     def saveLogs(self, data):
-        self.col = self.db['log']
+        col = self.db['log']
         data['createTime'] = datetime.datetime.utcnow()
-        result = self.col.insert_one(data)
-        self.col = self.db['clock']
+        result = col.insert_one(data)
         return result
+
+    def findLogs(self):
+        col = self.db['log']
+        results = col.find()
+        items = []
+        for result in results:
+            item = result
+            del item['_id']
+            id = item['student_id']
+            item['student_id'] = '********' + id[8:11]
+            items.append(item)
+        return items

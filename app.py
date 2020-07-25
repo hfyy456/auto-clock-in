@@ -14,10 +14,12 @@ User = User()
 
 
 @app.route('/clock', methods=["POST"])
-def hello_world():
-    print('1')
+def do_clock():
     return post_in(request)
 
+@app.route('/logs', methods=["POST"])
+def get_logs():
+    return find_logs(request)
 
 @app.route('/')
 def index():
@@ -26,8 +28,6 @@ def index():
 
 def post_in(request):
     data = json.loads(request.get_data())
-    result = dict()
-    log = dict()
     if data['auto'] == 1:
         log = clock.clock_in(data)
         print(log)
@@ -45,6 +45,12 @@ def post_in(request):
     else:
         return response(log, code=50000, message='打卡失败！')
 
+def find_logs(request):
+    data = User.findLogs()
+    if(data):
+        return response(data, code=20000, message='查找成功！')
+    else:
+        return response({}, code=50000, message='查找失败！')
 
 def response(data, code, message):
     return json.dumps({

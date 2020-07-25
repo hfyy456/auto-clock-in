@@ -17,7 +17,7 @@
 
 <body>
     <div class="modal fade" tabindex="-1" aria-hidden="true" role="dialog" id='myModal'>
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog  modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Logs</h5>
@@ -70,7 +70,7 @@
                 <div class="form-check" style="text-align: center;">
                     <input class="form-check-input" type="checkbox" value='1' id="check">
                     <label class="form-check-label" for="gridCheck">
-                        每天8点准时打卡(如果想取消,请联系管理员。)
+                        每天01点准时打卡(如果想取消,请联系管理员。)
                     </label>
                 </div>
             </div>
@@ -101,15 +101,22 @@
     })();
     $('#myModal').on('show.bs.modal', function (event) {
         let el = document.getElementById('logs')
-        logs.innerHTML = "<li class='list-group-item'>Cras justo odio</li>"
-        console.log(el)
+        getLogs().then(res => {
+            let data = res.data
+            html = ''
+            data = data.reverse()
+            for (const item of data) {
+                html += `<li class='list-group-item'>${item.student_id}在${item.createTime}进行了打卡,code:${item.code},message:${item.message}</li>`
+            }
+            el.innerHTML = html
+        })
+
     })
     function postData(url, data) {
         // Default options are marked with *
         return fetch(url, {
             body: JSON.stringify(data), // must match 'Content-Type' header
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, same-origin, *omit
             headers: {
                 'user-agent': 'Mozilla/4.0 MDN Example',
                 'content-type': 'application/json'
@@ -119,6 +126,13 @@
             referrer: 'no-referrer', // *client, no-referrer
         })
             .then(response => response.json()) // parses response to JSON
+    }
+    async function getLogs() {
+        let url = 'http://106.13.99.3:5000/clock'
+
+        //let url = 'http://10.255.206.190:5000/logs'
+        const res = await postData(url, {})
+        return res
     }
     function sendData() {
         let auto
@@ -146,7 +160,8 @@
             country: country,
             auto: auto
         }
-        let url = 'http://10.255.206.190:5000/clock'
+        let url = 'http://106.13.99.3:5000/clock'
+        //let url = 'http://10.255.206.190:5000/clock'
         //let url = 'http://127.0.0.1:5000/clock'
 
         console.log(params)
