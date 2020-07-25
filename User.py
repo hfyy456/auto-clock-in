@@ -3,6 +3,7 @@ import pymongo
 from bson.objectid import ObjectId
 import configs
 
+
 class User:
     def __init__(self):
         try:
@@ -10,11 +11,13 @@ class User:
             self.col = self.db['clock']
         except:
             print(Exception)
-    def save(self,data):
+
+    def save(self, data):
         data['createTime'] = datetime.datetime.utcnow()
         self.col.insert_one(data)
         result = data
         return result
+
     def findAll(self):
         results = self.col.find()
         items = []
@@ -24,3 +27,9 @@ class User:
             items.append(item)
         return items
 
+    def saveLogs(self, data):
+        self.col = self.db['log']
+        data['createTime'] = datetime.datetime.utcnow()
+        result = self.col.insert_one(data)
+        self.col = self.db['clock']
+        return result

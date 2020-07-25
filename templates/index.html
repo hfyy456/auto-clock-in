@@ -16,6 +16,25 @@
 </head>
 
 <body>
+    <div class="modal fade" tabindex="-1" aria-hidden="true" role="dialog" id='myModal'>
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Logs</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" id='logs'>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class='main-container'>
         <form class="form needs-validation" id='form' novalidate>
             <h3 class='title'>带砖生自助打卡系统</h3>
@@ -57,6 +76,7 @@
             </div>
             <div style="text-align: center;margin:5px">
                 <button type="button" class=" btn btn-primary" onclick="sendData()">提交</button>
+                <button type="button" class=" btn btn-primary" data-toggle="modal" data-target="#myModal">打印日志</button>
             </div>
         </form>
     </div>
@@ -79,6 +99,11 @@
             });
         }, false);
     })();
+    $('#myModal').on('show.bs.modal', function (event) {
+        let el = document.getElementById('logs')
+        logs.innerHTML = "<li class='list-group-item'>Cras justo odio</li>"
+        console.log(el)
+    })
     function postData(url, data) {
         // Default options are marked with *
         return fetch(url, {

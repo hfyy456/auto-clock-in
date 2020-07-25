@@ -12,6 +12,7 @@ scheduler = APScheduler()
 CORS(app, supports_credentials=True)
 User = User()
 
+
 @app.route('/clock', methods=["POST"])
 def hello_world():
     print('1')
@@ -21,7 +22,6 @@ def hello_world():
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 
 def post_in(request):
@@ -34,7 +34,13 @@ def post_in(request):
         result = User.save(data)
     else:
         log = clock.clock_in(data)
-    if(log['code'] == 200 ):
+    status = {
+        'student_id': data['student_id'],
+        'code': log['code'],
+        'message': log['message']
+    }
+    User.saveLogs(status)
+    if (log['code'] == 200):
         return response(data, code=20000, message='打卡成功！')
     else:
         return response(log, code=50000, message='打卡失败！')
@@ -47,7 +53,7 @@ def response(data, code, message):
         'message': message
     }, indent=2, ensure_ascii=False, cls=DateEnconding)
 
-
+#XU@6X6Pl
 class DateEnconding(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, datetime.datetime):
@@ -61,7 +67,7 @@ if __name__ == '__main__':
          "JOBS": [{"id": "my_job",  # 任务ID
                    "func": "task:my_job",  # 任务位置
                    "trigger": "interval",  # 触发器
-                   "seconds": 3600 # 时间间隔
+                   "seconds": 3600  # 时间间隔
                    }
                   ]}
     )
