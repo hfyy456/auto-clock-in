@@ -10,10 +10,11 @@ def clock_in(data):
     t = datetime.datetime.now()
     t1 = t.strftime('%Y-%m-%d %H:%M:%S')
     ts1 = time.mktime(time.strptime(t1, '%Y-%m-%d %H:%M:%S'))
-    ts2 = 1595607693.0
+    ts2 = 1595606457
    # end_time = int(str(ts1 * 1000).split(".")[0])
    # start_time = int(str(ts2 * 1000).split(".")[0])
     days = int((datetime.datetime.fromtimestamp(ts1) - datetime.datetime.fromtimestamp(ts2)).days)
+    print(days)
     headers = {
         'Referer': 'https://v-xxtb.zust.edu.cn/web/mobile37/',
         'Origin': 'https://v-xxtb.zust.edu.cn',

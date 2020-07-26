@@ -10,6 +10,7 @@ my_sender = 'izhaoostudio@163.com'  # 发件人邮箱账号
 my_pass = 'DUKVWBTAZLXGPVZH'  # 发件人邮箱密码
 
 def mail(email):
+    ret = ''
     try:
         dir = 'content.html'  # 指定文件目录
         f = open(dir, 'rb')

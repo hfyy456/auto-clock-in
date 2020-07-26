@@ -4,6 +4,7 @@ import time
 from User import User
 import clock
 from sender import mail
+
 user = User()
 
 
@@ -24,7 +25,7 @@ def my_job():
                     'message': log['message']
                 }
                 user.saveLogs(status)
-                if(item['email'] and status.code==200):
+                if ("email" in item) and status["code"] == 200:
                     mail(item['email'])
                 time.sleep(1)
         return
