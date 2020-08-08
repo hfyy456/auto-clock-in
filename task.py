@@ -25,8 +25,6 @@ def my_job():
                     'message': log['message']
                 }
                 user.saveLogs(status)
-                if ("email" in item) and status["code"] == 200:
-                    mail(item['email'])
                 time.sleep(1)
         return
 
