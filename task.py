@@ -21,8 +21,6 @@ def my_job():
                 print(log)
                 status = {
                     'student_id': item['student_id'],
-                    'code': log['code'],
-                    'message': log['message']
                 }
                 user.saveLogs(status)
                 time.sleep(1)

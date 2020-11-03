@@ -18,7 +18,7 @@ def clock_in(data):
     headers = {
         'Referer': 'https://v-xxtb.zust.edu.cn/web/mobile37/',
         'Origin': 'https://v-xxtb.zust.edu.cn',
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0.1; Moto G (4)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Mobile Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; 1503-M02 Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile MQQBrowser/6.2 TBS/036558 Safari/537.36 MicroMessenger/6.3.25.861 NetType/WIFI Language/zh_CN',
         'Accept': 'application/json',
         'Accept-Language': 'zh-cn',
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -47,4 +47,4 @@ def clock_in(data):
     payload = urlencode(params)
     print(payload)
     response = requests.request("POST", url, headers=headers, data=payload)
-    return response.json()
+    return response.content
